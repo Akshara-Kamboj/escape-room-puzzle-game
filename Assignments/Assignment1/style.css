@@ -183,10 +183,10 @@ img {
 }
 
 .hero-image img {
-  width: 320px;
-  height: 320px;
+  width: 400px;
+  height: 400px;
   border-radius: 50%;
-  object-fit: cover;
+  object-fit: contain;
   border: 6px solid #FFFFFF;
   box-shadow: 0 10px 30px rgba(0, 31, 84, 0.2);
 }
