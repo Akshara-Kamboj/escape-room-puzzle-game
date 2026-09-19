@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #eaf4ff, #f7f9fc);
+        color: #222;
+        min-height: 100vh;
+        padding: 40px 20px;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: auto;
+        background: white;
+        padding: 35px;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    h1 {
+        text-align: center;
+        color: #1f4e79;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        color: #2f6690;
+        border-bottom: 2px solid #d9e8f5;
+        padding-bottom: 7px;
+        margin-top: 28px;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 30px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th {
+        background: #1f4e79;
+        color: white;
+    }
+
+    th, td {
+        padding: 14px;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+
+    tr:nth-child(even) {
+        background: #f5f9fc;
+    }
+
+    .total {
+        font-weight: bold;
+        background: #dcecf8;
+    }
+
+    .card {
+        background: #f7fbff;
+        padding: 18px;
+        border-left: 5px solid #2f6690;
+        margin: 15px 0;
+        border-radius: 8px;
+    }
+
+    ul, ol {
+        line-height: 1.9;
+    }
+
+    .menu-item {
+        display: flex;
+        justify-content: space-between;
+        background: #f7fbff;
+        padding: 12px 18px;
+        margin: 8px 0;
+        border-radius: 8px;
+        border: 1px solid #e1edf6;
+    }
+
+    form {
+        max-width: 650px;
+        margin: auto;
+    }
+
+    label {
+        display: inline-block;
+        margin-bottom: 7px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    select {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 18px;
+        border: 1px solid #bbb;
+        border-radius: 7px;
+        font-size: 15px;
+    }
+
+    .option-group {
+        margin-bottom: 18px;
+        padding: 15px;
+        background: #f7fbff;
+        border-radius: 8px;
+    }
+
+    .option-group label {
+        margin-right: 18px;
+        font-weight: normal;
+    }
+
+    input[type="submit"],
+    input[type="reset"] {
+        border: none;
+        padding: 12px 25px;
+        border-radius: 7px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-right: 10px;
+        background: #1f4e79;
+        color: white;
+    }
+
+    input[type="reset"] {
+        background: #777;
+    }
+
+    .profile {
+        text-align: center;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .profile h1 {
+        margin-bottom: 5px;
+    }
+
+    .contact {
+        color: #666;
+    }
+
+    .footer {
+        text-align: center;
+        margin-top: 30px;
+        color: #777;
+        font-size: 14px;
+    }
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Registration Form</h1>
+        <p class="subtitle">Please fill in your details below</p>
+
+        <form>
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <div class="option-group">
+                <strong>Gender:</strong><br><br>
+                <input type="radio" id="male" name="gender" value="male">
+                <label for="male">Male</label>
+
+                <input type="radio" id="female" name="gender" value="female">
+                <label for="female">Female</label>
+            </div>
+
+            <div class="option-group">
+                <strong>Hobbies:</strong><br><br>
+                <input type="checkbox" id="reading" name="hobby" value="reading">
+                <label for="reading">Reading</label>
+
+                <input type="checkbox" id="music" name="hobby" value="music">
+                <label for="music">Music</label>
+
+                <input type="checkbox" id="sports" name="hobby" value="sports">
+                <label for="sports">Sports</label>
+            </div>
+
+            <label for="course">Select Course</label>
+            <select id="course" name="course" required>
+                <option value="">-- Select Course --</option>
+                <option value="bca">BCA</option>
+                <option value="btech">B.Tech</option>
+                <option value="bsc">B.Sc</option>
+                <option value="mca">MCA</option>
+            </select>
+
+            <input type="submit" value="Register">
+            <input type="reset" value="Clear">
+        </form>
+    </div>
+</body>
+</html>
