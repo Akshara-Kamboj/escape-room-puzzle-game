@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Game Room | Escape Room</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <main class="game-page">
+
+        <!-- HEADER -->
+
+        <header class="game-header">
+
+            <div class="logo">
+                ESCAPE ROOM
+            </div>
+
+            <div class="game-status">
+
+                <div class="status-box">
+                    <span>TIME</span>
+                    <strong>14:52</strong>
+                </div>
+
+                <div class="status-box">
+                    <span>SCORE</span>
+                    <strong>100</strong>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- GAME AREA -->
+
+        <section class="game-area">
+
+            <div class="room-header">
+
+                <div>
+                    <p class="small-label">CURRENT ROOM</p>
+                    <h1>Room 01</h1>
+                </div>
+
+                <div class="progress-text">
+                    Puzzle 1 / 5
+                </div>
+
+            </div>
+
+
+            <!-- PROGRESS BAR -->
+
+            <div class="progress-bar">
+
+                <div class="progress-fill"></div>
+
+            </div>
+
+
+            <!-- PUZZLE -->
+
+            <div class="puzzle-card">
+
+                <p class="puzzle-label">
+                    PUZZLE 01
+                </p>
+
+                <h2>
+                    Find the Hidden Code
+                </h2>
+
+                <p class="puzzle-description">
+                    You discover a mysterious locked box in the room.
+                    A note beside it contains a clue.
+                    Enter the correct code to unlock it.
+                </p>
+
+
+                <div class="clue-box">
+
+                    <span>CLUE</span>
+
+                    <p>
+                        The first number is greater than 3.
+                        The second number is twice the first.
+                    </p>
+
+                </div>
+
+
+                <label for="answer">
+                    Enter your answer
+                </label>
+
+                <input
+                    type="text"
+                    id="answer"
+                    placeholder="Enter code"
+                >
+
+
+                <div class="puzzle-actions">
+
+                    <button class="btn btn-primary">
+                        Submit Answer
+                    </button>
+
+                    <button class="btn btn-hint">
+                        💡 Hint
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+
+        <footer class="game-footer">
+
+            <span>
+                ESCAPE ROOM PUZZLE GAME
+            </span>
+
+            <span>
+                Room 1 of 5
+            </span>
+
+        </footer>
+
+    </main>
+
+</body>
+
+</html>
