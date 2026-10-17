@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signup Page</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#eef3f8;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.container{width:min(440px,90%);background:white;padding:32px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.12)}
+h1{text-align:center;color:#1f4e79}.subtitle{text-align:center;color:#666}
+label{display:block;margin-top:15px;margin-bottom:6px;font-weight:bold}input{width:100%;padding:12px;border:1px solid #bbb;border-radius:8px;font-size:15px}
+button{width:100%;margin-top:22px;padding:13px;border:0;border-radius:8px;background:#1f4e79;color:white;font-size:16px;cursor:pointer}
+.error{color:#c62828;font-size:13px;margin-top:5px}.success{color:#2e7d32;text-align:center;margin-top:15px;font-weight:bold}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Create Account</h1><p class="subtitle">Sign up to get started</p>
+<form id="signupForm" onsubmit="validateForm(event)">
+<label for="name">Full Name</label><input type="text" id="name" placeholder="Enter your name">
+<div class="error" id="nameError"></div>
+<label for="email">Email Address</label><input type="text" id="email" placeholder="Enter your email">
+<div class="error" id="emailError"></div>
+<label for="password">Password</label><input type="password" id="password" placeholder="Minimum 6 characters">
+<div class="error" id="passwordError"></div>
+<label for="confirmPassword">Confirm Password</label><input type="password" id="confirmPassword" placeholder="Re-enter password">
+<div class="error" id="confirmError"></div>
+<button type="submit">Sign Up</button>
+<div class="success" id="success"></div>
+</form>
+</div>
+<script>
+function validateForm(e){
+ e.preventDefault();
+ document.querySelectorAll(".error").forEach(x=>x.innerHTML="");
+ document.getElementById("success").innerHTML="";
+ const name=document.getElementById("name").value.trim();
+ const email=document.getElementById("email").value.trim();
+ const password=document.getElementById("password").value;
+ const confirm=document.getElementById("confirmPassword").value;
+ let valid=true;
+ if(name.length<3){document.getElementById("nameError").innerHTML="Name must contain at least 3 characters.";valid=false;}
+ if(!email.includes("@") || !email.includes(".")){document.getElementById("emailError").innerHTML="Please enter a valid email.";valid=false;}
+ if(password.length<6){document.getElementById("passwordError").innerHTML="Password must be at least 6 characters.";valid=false;}
+ if(password!==confirm){document.getElementById("confirmError").innerHTML="Passwords do not match.";valid=false;}
+ if(valid){document.getElementById("success").innerHTML="Signup successful!";document.getElementById("signupForm").reset();}
+}
+</script>
+</body>
+</html>

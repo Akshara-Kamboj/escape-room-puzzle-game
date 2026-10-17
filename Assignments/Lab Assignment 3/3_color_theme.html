@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Theme Changer</title>
+<style>
+:root{--bg:#f4f7fb;--card:#fff;--text:#222;--primary:#1f4e79}
+*{box-sizing:border-box}body{margin:0;font-family:Arial;background:var(--bg);color:var(--text);transition:.3s}
+.container{max-width:750px;margin:100px auto;padding:35px;background:var(--card);border-radius:16px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.12)}
+h1{color:var(--primary)}.buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:25px}
+button{padding:12px 20px;border:0;border-radius:8px;cursor:pointer;font-size:15px;color:white;background:var(--primary)}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Color Theme Changer</h1>
+<p>Click a button to change the appearance of this webpage.</p>
+<div class="buttons">
+<button onclick="setTheme('#f4f7fb','#ffffff','#222222','#1f4e79')">Blue Theme</button>
+<button onclick="setTheme('#fff7ed','#ffffff','#3f2d20','#c2410c')">Orange Theme</button>
+<button onclick="setTheme('#f0fdf4','#ffffff','#1f3b2a','#15803d')">Green Theme</button>
+<button onclick="setTheme('#1f2937','#374151','#f9fafb','#60a5fa')">Dark Theme</button>
+</div>
+</div>
+<script>
+function setTheme(bg,card,text,primary){
+ document.documentElement.style.setProperty('--bg',bg);
+ document.documentElement.style.setProperty('--card',card);
+ document.documentElement.style.setProperty('--text',text);
+ document.documentElement.style.setProperty('--primary',primary);
+}
+</script>
+</body>
+</html>
