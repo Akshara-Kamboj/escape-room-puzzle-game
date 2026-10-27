@@ -5,49 +5,528 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Escape Room Puzzle Game</title>
+    <title>Escape Room | Solve the Mystery Before Time Runs Out</title>
+    <meta name="description" content="A browser puzzle game of riddles, hidden clues and a ticking clock. Choose Easy, Medium or Hard and try to escape.">
 
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/landing.css">
+    <script src="js/themes.js"></script>
 </head>
 
 <body>
 
-    <main class="home-page">
+    <a class="skip-link" href="#main">Skip to main content</a>
 
-        <section class="hero">
+    <!-- ======================= NAVIGATION ======================= -->
 
-            <div class="hero-content">
+    <header class="site-nav" id="top">
+        <div class="container nav-inner">
 
-                <p class="game-label">
-                    THE ULTIMATE PUZZLE CHALLENGE
-                </p>
+            <a href="#home" class="brand" aria-label="Escape Room, back to top">
+                <span class="brand__mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 21V10a6 6 0 0 1 12 0v11z"></path>
+                        <circle cx="12" cy="12.5" r="1.6" fill="currentColor" stroke="none"></circle>
+                        <path d="M12 14v3" stroke-width="2.2"></path>
+                    </svg>
+                </span>
+                <span class="brand__name">Escape Room</span>
+            </a>
 
-                <h1>
-                    ESCAPE ROOM
-                </h1>
+            <nav class="nav-panel" id="nav-panel" aria-label="Main">
+                <ul class="nav-links">
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#how-it-works" class="nav-link">How to Play</a></li>
+                    <li><a href="#features" class="nav-link">Features</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                </ul>
 
-                <p class="game-description">
-                    Solve the puzzles. Discover the clues.
-                    Escape before time runs out.
-                </p>
+                <!-- Jumps to the existing theme selector further down the page -->
+                <a href="#theme-selector" class="nav-theme">
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 3a9 9 0 1 0 0 18c1.2 0 2-.8 2-1.8 0-.5-.2-.9-.5-1.3-.3-.4-.5-.8-.5-1.3 0-1 .8-1.8 1.8-1.8H17a4 4 0 0 0 4-4c0-4.4-4-8-9-8z"></path>
+                        <circle cx="7.5" cy="11" r="1"></circle>
+                        <circle cx="10.5" cy="7" r="1"></circle>
+                        <circle cx="15" cy="7.5" r="1"></circle>
+                    </svg>
+                    Themes
+                </a>
+            </nav>
 
-                <div class="home-buttons">
+            <a href="difficulty.html" class="btn btn-primary nav-play">Play Now</a>
 
-                    <a href="game.html" class="btn btn-primary">
-                        Start Game
-                    </a>
+            <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-panel" aria-label="Open menu">
+                <span class="nav-toggle__bars" aria-hidden="true"></span>
+            </button>
 
-                    <a href="instructions.html" class="btn btn-secondary">
-                        How to Play
-                    </a>
+        </div>
+    </header>
+
+
+    <main id="main" class="landing">
+
+        <!-- ======================= HERO ======================= -->
+
+        <section class="landing-hero" id="home" aria-labelledby="hero-title">
+            <div class="container hero-grid">
+
+                <div class="hero-copy">
+
+                    <p class="hero-badge">
+                        <span class="hero-badge__dot" aria-hidden="true"></span>
+                        Your next mystery starts here
+                    </p>
+
+                    <h1 id="hero-title">
+                        Think Fast. Solve the Mystery.
+                        <span class="gradient-text">Escape Before Time Runs Out.</span>
+                    </h1>
+
+                    <p class="hero-lead">
+                        Step into a world of riddles, hidden clues, and mind-bending puzzles.
+                        Challenge your logic, beat the clock, and prove you have what it takes to escape.
+                    </p>
+
+                    <div class="hero-buttons">
+                        <a href="difficulty.html" class="btn btn-primary btn-lg">Play Now</a>
+                        <a href="#how-it-works" class="btn btn-secondary btn-lg">How to Play</a>
+                    </div>
+
+                </div>
+
+                <!-- Decorative scene: door, keyhole, floating puzzle pieces -->
+                <div class="hero-visual" aria-hidden="true">
+
+                    <svg class="scene" viewBox="0 0 460 500" xmlns="http://www.w3.org/2000/svg" focusable="false">
+                        <defs>
+                            <radialGradient id="sceneGlow" cx="50%" cy="52%" r="50%">
+                                <stop offset="0" class="stop-primary" stop-opacity="0.38"></stop>
+                                <stop offset="1" class="stop-primary" stop-opacity="0"></stop>
+                            </radialGradient>
+                            <linearGradient id="doorGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" class="stop-door-top"></stop>
+                                <stop offset="1" class="stop-door-bottom"></stop>
+                            </linearGradient>
+                            <linearGradient id="beamGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" class="stop-secondary" stop-opacity="0.7"></stop>
+                                <stop offset="1" class="stop-secondary" stop-opacity="0"></stop>
+                            </linearGradient>
+                        </defs>
+
+                        <!-- atmosphere -->
+                        <circle cx="230" cy="250" r="215" fill="url(#sceneGlow)"></circle>
+                        <circle class="scene-ring" cx="230" cy="250" r="190"></circle>
+                        <circle class="scene-ring scene-ring--inner" cx="230" cy="250" r="150"></circle>
+
+                        <!-- floor + light spilling from under the door -->
+                        <ellipse class="scene-shadow" cx="230" cy="444" rx="140" ry="16"></ellipse>
+                        <path class="scene-beam" d="M196 440h68l86 56H110z" fill="url(#beamGrad)"></path>
+
+                        <!-- door -->
+                        <path class="door-frame" d="M126 442V200a104 104 0 0 1 208 0v242z"></path>
+                        <path class="door-body" d="M142 442V200a88 88 0 0 1 176 0v242z" fill="url(#doorGrad)"></path>
+                        <path class="door-panel" d="M166 424V210a64 64 0 0 1 128 0v214z"></path>
+                        <path class="door-panel" d="M166 340h128"></path>
+
+                        <!-- keyhole -->
+                        <circle class="keyhole-glow" cx="230" cy="288" r="44"></circle>
+                        <circle class="keyhole-plate" cx="230" cy="288" r="30"></circle>
+                        <circle class="keyhole-hole" cx="230" cy="281" r="9"></circle>
+                        <path class="keyhole-hole" d="M225.5 287h9l4 24h-17z"></path>
+                        <circle class="door-handle" cx="298" cy="336" r="7"></circle>
+
+                        <!-- floating puzzle symbols -->
+                        <g class="float float--a">
+                            <g transform="translate(42 98) rotate(-14)">
+                                <path class="piece piece--cyan" d="M0 0h14a6 6 0 1 1 12 0h14v14a6 6 0 1 0 0 12v14H0z"></path>
+                            </g>
+                        </g>
+
+                        <g class="float float--b">
+                            <g transform="translate(366 306) rotate(12)">
+                                <path class="piece piece--purple" d="M0 0h14a6 6 0 1 1 12 0h14v14a6 6 0 1 0 0 12v14H0z"></path>
+                            </g>
+                        </g>
+
+                        <g class="float float--c">
+                            <g transform="translate(58 352) rotate(-28)">
+                                <circle class="key-line" cx="10" cy="10" r="9"></circle>
+                                <path class="key-line" d="M19 10h30M38 10v10M47 10v7"></path>
+                            </g>
+                        </g>
+
+                        <g class="float float--d">
+                            <circle class="bubble" cx="384" cy="128" r="24"></circle>
+                            <text class="bubble-text" x="384" y="138" text-anchor="middle">?</text>
+                        </g>
+
+                        <g class="float float--e">
+                            <path class="spark" d="M96 238l5 12 12 5-12 5-5 12-5-12-12-5 12-5z"></path>
+                        </g>
+
+                        <g class="float float--f">
+                            <path class="spark spark--cyan" d="M356 214l4 9 9 4-9 4-4 9-4-9-9-4 9-4z"></path>
+                        </g>
+                    </svg>
+
+                    <div class="chip chip--clock">
+                        <span class="chip__label">Time left</span>
+                        <strong class="chip__time">06:00</strong>
+                    </div>
+
+                    <div class="chip chip--clue">
+                        <span class="chip__label">Clue</span>
+                        <span class="chip__text">The second number is twice the first&hellip;</span>
+                    </div>
 
                 </div>
 
             </div>
+        </section>
 
+
+        <!-- ======================= STATS STRIP ======================= -->
+
+        <section class="container stats-wrap" aria-label="The game at a glance">
+            <ul class="stats-strip reveal">
+
+                <li class="stat">
+                    <span class="stat__icon" aria-hidden="true">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M5 20V12M12 20V5M19 20v-5"></path></svg>
+                    </span>
+                    <span class="stat__text">
+                        <strong>3 Difficulty Levels</strong>
+                        <span>Easy, Medium, Hard</span>
+                    </span>
+                </li>
+
+                <li class="stat">
+                    <span class="stat__icon" aria-hidden="true">
+                        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+                    </span>
+                    <span class="stat__text">
+                        <strong><span data-bind="all-minutes">4 / 6 / 8</span> Minutes</strong>
+                        <span>One timer per level</span>
+                    </span>
+                </li>
+
+                <li class="stat">
+                    <span class="stat__icon" aria-hidden="true">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M10 3a2 2 0 0 1 4 0v2h4v4h-2a2 2 0 0 0 0 4h2v6h-6v-2a2 2 0 0 0-4 0v2H4v-6h2a2 2 0 0 0 0-4H4V5h6V3z"></path></svg>
+                    </span>
+                    <span class="stat__text">
+                        <strong><span data-bind="riddle-count">5</span> Riddles Per Level</strong>
+                        <span>Logic &amp; riddle challenges</span>
+                    </span>
+                </li>
+
+                <li class="stat">
+                    <span class="stat__icon" aria-hidden="true">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M9 3h6M12 3v3"></path><circle cx="12" cy="14" r="7"></circle><path d="M12 11v3l2 1.5"></path></svg>
+                    </span>
+                    <span class="stat__text">
+                        <strong>Beat the Clock</strong>
+                        <span>Faster escapes score higher</span>
+                    </span>
+                </li>
+
+            </ul>
+        </section>
+
+
+        <!-- ======================= CHOOSE YOUR CHALLENGE ======================= -->
+
+        <section class="band" id="challenges" aria-labelledby="challenges-title">
+            <div class="container">
+
+                <header class="section-head reveal">
+                    <p class="eyebrow">Three levels</p>
+                    <h2 id="challenges-title">Choose Your Challenge</h2>
+                    <p>Pick the level that suits you. Opening a level only highlights it on the next screen. Your timer starts when you press Start Game there.</p>
+                </header>
+
+                <div class="level-grid">
+
+                    <article class="level-card level-card--easy reveal">
+                        <div class="level-card__top">
+                            <span class="difficulty-pips" aria-hidden="true">
+                                <span class="difficulty-pip is-on"></span>
+                                <span class="difficulty-pip"></span>
+                                <span class="difficulty-pip"></span>
+                            </span>
+                            <span class="level-tag">Beginner</span>
+                        </div>
+                        <h3>Easy</h3>
+                        <p class="level-card__desc">Beginner-friendly riddles with clear, straightforward answers.</p>
+                        <dl class="difficulty-facts">
+                            <div class="difficulty-fact"><dt>Time limit</dt><dd><span data-bind="minutes-easy">4</span> min</dd></div>
+                            <div class="difficulty-fact"><dt>Riddles</dt><dd data-bind="count-easy">5</dd></div>
+                        </dl>
+                        <a href="difficulty.html?level=easy" class="btn btn-secondary level-card__btn" aria-label="Explore Easy level">Explore Easy</a>
+                    </article>
+
+                    <article class="level-card level-card--medium reveal">
+                        <div class="level-card__top">
+                            <span class="difficulty-pips" aria-hidden="true">
+                                <span class="difficulty-pip is-on"></span>
+                                <span class="difficulty-pip is-on"></span>
+                                <span class="difficulty-pip"></span>
+                            </span>
+                            <span class="level-tag">Intermediate</span>
+                        </div>
+                        <h3>Medium</h3>
+                        <p class="level-card__desc">Logical thinking and pattern-based challenges that reward careful reading.</p>
+                        <dl class="difficulty-facts">
+                            <div class="difficulty-fact"><dt>Time limit</dt><dd><span data-bind="minutes-medium">6</span> min</dd></div>
+                            <div class="difficulty-fact"><dt>Riddles</dt><dd data-bind="count-medium">5</dd></div>
+                        </dl>
+                        <a href="difficulty.html?level=medium" class="btn btn-secondary level-card__btn" aria-label="Explore Medium level">Explore Medium</a>
+                    </article>
+
+                    <article class="level-card level-card--hard reveal">
+                        <div class="level-card__top">
+                            <span class="difficulty-pips" aria-hidden="true">
+                                <span class="difficulty-pip is-on"></span>
+                                <span class="difficulty-pip is-on"></span>
+                                <span class="difficulty-pip is-on"></span>
+                            </span>
+                            <span class="level-tag">Expert</span>
+                        </div>
+                        <h3>Hard</h3>
+                        <p class="level-card__desc">Advanced reasoning and mind-bending riddles that need lateral thinking.</p>
+                        <dl class="difficulty-facts">
+                            <div class="difficulty-fact"><dt>Time limit</dt><dd><span data-bind="minutes-hard">8</span> min</dd></div>
+                            <div class="difficulty-fact"><dt>Riddles</dt><dd data-bind="count-hard">5</dd></div>
+                        </dl>
+                        <a href="difficulty.html?level=hard" class="btn btn-secondary level-card__btn" aria-label="Explore Hard level">Explore Hard</a>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ======================= HOW IT WORKS ======================= -->
+
+        <section class="band band--tint" id="how-it-works" aria-labelledby="how-title">
+            <div class="container">
+
+                <header class="section-head reveal">
+                    <p class="eyebrow">How to play</p>
+                    <h2 id="how-title">How It Works</h2>
+                    <p>Three simple steps from the front door to freedom.</p>
+                </header>
+
+                <ol class="steps">
+
+                    <li class="step reveal">
+                        <span class="step__icon" aria-hidden="true">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M5 20V12M12 20V5M19 20v-5"></path></svg>
+                            <span class="step__num">1</span>
+                        </span>
+                        <h3>Choose Your Level</h3>
+                        <p>Select Easy, Medium, or Hard.</p>
+                    </li>
+
+                    <li class="step reveal">
+                        <span class="step__icon" aria-hidden="true">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M10 3a2 2 0 0 1 4 0v2h4v4h-2a2 2 0 0 0 0 4h2v6h-6v-2a2 2 0 0 0-4 0v2H4v-6h2a2 2 0 0 0 0-4H4V5h6V3z"></path></svg>
+                            <span class="step__num">2</span>
+                        </span>
+                        <h3>Solve the Riddles</h3>
+                        <p>Read clues, think carefully, and submit your answers.</p>
+                    </li>
+
+                    <li class="step reveal">
+                        <span class="step__icon" aria-hidden="true">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M9 3h6M12 3v3"></path><circle cx="12" cy="14" r="7"></circle><path d="M12 11v3l2 1.5"></path></svg>
+                            <span class="step__num">3</span>
+                        </span>
+                        <h3>Beat the Clock</h3>
+                        <p>Solve every puzzle before time runs out.</p>
+                    </li>
+
+                </ol>
+
+                <p class="section-note reveal">
+                    Want the full rules? <a href="instructions.html">Read the complete instructions</a>.
+                </p>
+
+            </div>
+        </section>
+
+
+        <!-- ======================= FEATURES ======================= -->
+
+        <section class="band" id="features" aria-labelledby="features-title">
+            <div class="container">
+
+                <header class="section-head reveal">
+                    <p class="eyebrow">What's inside</p>
+                    <h2 id="features-title">Built for Puzzle Lovers</h2>
+                    <p>Everything here works in the game today.</p>
+                </header>
+
+                <div class="feature-grid">
+
+                    <article class="feature reveal">
+                        <span class="feature__icon" aria-hidden="true">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M10 3a2 2 0 0 1 4 0v2h4v4h-2a2 2 0 0 0 0 4h2v6h-6v-2a2 2 0 0 0-4 0v2H4v-6h2a2 2 0 0 0 0-4H4V5h6V3z"></path></svg>
+                        </span>
+                        <h3>Mind-Bending Riddles</h3>
+                        <p>Challenges that test logic and creativity.</p>
+                    </article>
+
+                    <article class="feature reveal">
+                        <span class="feature__icon" aria-hidden="true">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M5 20V12M12 20V5M19 20v-5"></path></svg>
+                        </span>
+                        <h3>Three Difficulty Levels</h3>
+                        <p>Choose your preferred challenge.</p>
+                    </article>
+
+                    <article class="feature reveal">
+                        <span class="feature__icon" aria-hidden="true">
+                            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+                        </span>
+                        <h3>Race Against Time</h3>
+                        <p>Complete your puzzles before the countdown ends.</p>
+                    </article>
+
+                    <article class="feature reveal">
+                        <span class="feature__icon" aria-hidden="true">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"></path></svg>
+                        </span>
+                        <h3>Hints &amp; Scoring</h3>
+                        <p>Use hints strategically. Each one costs points.</p>
+                    </article>
+
+                    <article class="feature reveal">
+                        <span class="feature__icon" aria-hidden="true">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M3 3v18h18M7 15l4-4 3 3 5-6"></path></svg>
+                        </span>
+                        <h3>Progress Tracking</h3>
+                        <p>Follow your journey through each room with a live progress bar.</p>
+                    </article>
+
+                    <article class="feature reveal">
+                        <span class="feature__icon" aria-hidden="true">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M12 3a9 9 0 1 0 0 18c1.2 0 2-.8 2-1.8 0-.5-.2-.9-.5-1.3-.3-.4-.5-.8-.5-1.3 0-1 .8-1.8 1.8-1.8H17a4 4 0 0 0 4-4c0-4.4-4-8-9-8z"></path>
+                                <circle cx="7.5" cy="11" r="1"></circle><circle cx="10.5" cy="7" r="1"></circle><circle cx="15" cy="7.5" r="1"></circle>
+                            </svg>
+                        </span>
+                        <h3>Personalized Themes</h3>
+                        <p>Pick from six looks. Your choice is remembered on every page.</p>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ======================= THEME SELECTOR (existing, built by js/themes.js) ======================= -->
+
+        <div class="band band--tint">
+            <div class="container theme-wrap">
+
+                <section class="theme-section reveal" id="theme-selector" aria-labelledby="theme-heading">
+
+                    <div class="theme-section__header">
+                        <h2 id="theme-heading">Choose Your Theme</h2>
+                        <p>
+                            Pick a card to preview a look. Nothing is saved
+                            until you choose Apply Theme.
+                        </p>
+                    </div>
+
+                    <div class="theme-grid" id="theme-grid" role="radiogroup" aria-labelledby="theme-heading">
+                        <noscript>Themes need JavaScript to be turned on.</noscript>
+                    </div>
+
+                    <div class="theme-actions">
+                        <button type="button" class="btn btn-primary" id="theme-apply" disabled>
+                            Apply Theme
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="theme-cancel" disabled>
+                            Cancel Preview
+                        </button>
+                    </div>
+
+                    <p class="theme-status" id="theme-status" role="status" aria-live="polite"></p>
+
+                </section>
+
+            </div>
+        </div>
+
+
+        <!-- ======================= FINAL CALL TO ACTION ======================= -->
+
+        <section class="container cta-wrap" aria-labelledby="cta-title">
+            <div class="cta reveal">
+
+                <svg class="cta__door" viewBox="0 0 200 260" aria-hidden="true" focusable="false">
+                    <path d="M20 250V100a80 80 0 0 1 160 0v150z"></path>
+                    <path d="M44 250V104a56 56 0 0 1 112 0v146z"></path>
+                    <circle cx="100" cy="150" r="14"></circle>
+                    <path d="M100 164v28"></path>
+                </svg>
+
+                <div class="cta__body">
+                    <h2 id="cta-title">The Door Is Waiting. Can You Escape?</h2>
+                    <p>Your clues are hidden. Your time is limited. Your next move is up to you.</p>
+                    <a href="difficulty.html" class="btn btn-primary btn-lg">Start Your Escape</a>
+                </div>
+
+            </div>
         </section>
 
     </main>
+
+
+    <!-- ======================= FOOTER ======================= -->
+
+    <footer class="site-footer" id="about">
+        <div class="container footer-grid">
+
+            <div class="footer-brand">
+                <a href="#home" class="brand" aria-label="Escape Room, back to top">
+                    <span class="brand__mark" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 21V10a6 6 0 0 1 12 0v11z"></path>
+                            <circle cx="12" cy="12.5" r="1.6" fill="currentColor" stroke="none"></circle>
+                            <path d="M12 14v3" stroke-width="2.2"></path>
+                        </svg>
+                    </span>
+                    <span class="brand__name">Escape Room</span>
+                </a>
+                <p>
+                    A browser puzzle game of riddles, hidden clues and a ticking clock.
+                    Choose a level, solve every riddle and escape before time runs out.
+                </p>
+            </div>
+
+            <nav class="footer-links" aria-label="Footer">
+                <h2 class="footer-links__title">Explore</h2>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#how-it-works">How to Play</a></li>
+                    <li><a href="#features">Features</a></li>
+                </ul>
+            </nav>
+
+        </div>
+
+        <div class="container footer-bottom">
+            <span>&copy; 2026 Escape Room</span>
+            <span>Created as an interactive puzzle game project</span>
+        </div>
+    </footer>
+
+
+    <script src="js/puzzles.js"></script>
+    <script src="js/landing.js"></script>
 
 </body>
 

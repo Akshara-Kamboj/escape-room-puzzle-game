@@ -8,6 +8,7 @@
     <title>Victory | Escape Room</title>
 
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/themes.js"></script>
 </head>
 
 <body>
@@ -38,12 +39,22 @@
 
                 <div class="result-stat">
                     <span>FINAL SCORE</span>
-                    <strong>850</strong>
+                    <strong id="result-score">850</strong>
                 </div>
 
                 <div class="result-stat">
                     <span>TIME LEFT</span>
-                    <strong>04:32</strong>
+                    <strong id="result-time">04:32</strong>
+                </div>
+
+                <div class="result-stat">
+                    <span>DIFFICULTY</span>
+                    <strong id="result-difficulty">Medium</strong>
+                </div>
+
+                <div class="result-stat">
+                    <span>PUZZLES SOLVED</span>
+                    <strong id="result-solved">5 / 5</strong>
                 </div>
 
             </div>
@@ -55,6 +66,10 @@
                     Play Again
                 </a>
 
+                <a href="difficulty.html" class="btn btn-secondary">
+                    Change Difficulty
+                </a>
+
                 <a href="index.html" class="btn btn-secondary">
                     Main Menu
                 </a>
@@ -64,6 +79,8 @@
         </section>
 
     </main>
+
+    <script src="js/results.js"></script>
 
 </body>
 

@@ -8,6 +8,7 @@
     <title>Game Room | Escape Room</title>
 
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/themes.js"></script>
 </head>
 
 <body>
@@ -20,18 +21,19 @@
 
             <div class="logo">
                 ESCAPE ROOM
+                <span class="level-badge" id="level-badge"></span>
             </div>
 
             <div class="game-status">
 
-                <div class="status-box">
+                <div class="status-box" id="time-box">
                     <span>TIME</span>
-                    <strong>14:52</strong>
+                    <strong id="time-display">14:52</strong>
                 </div>
 
                 <div class="status-box">
                     <span>SCORE</span>
-                    <strong>100</strong>
+                    <strong id="score-display">100</strong>
                 </div>
 
             </div>
@@ -47,10 +49,10 @@
 
                 <div>
                     <p class="small-label">CURRENT ROOM</p>
-                    <h1>Room 01</h1>
+                    <h1 id="room-title">Room 01</h1>
                 </div>
 
-                <div class="progress-text">
+                <div class="progress-text" id="progress-text">
                     Puzzle 1 / 5
                 </div>
 
@@ -59,9 +61,9 @@
 
             <!-- PROGRESS BAR -->
 
-            <div class="progress-bar">
+            <div class="progress-bar" id="progress-bar">
 
-                <div class="progress-fill"></div>
+                <div class="progress-fill" id="progress-fill"></div>
 
             </div>
 
@@ -70,15 +72,15 @@
 
             <div class="puzzle-card">
 
-                <p class="puzzle-label">
+                <p class="puzzle-label" id="puzzle-label">
                     PUZZLE 01
                 </p>
 
-                <h2>
+                <h2 id="puzzle-title">
                     Find the Hidden Code
                 </h2>
 
-                <p class="puzzle-description">
+                <p class="puzzle-description" id="puzzle-description">
                     You discover a mysterious locked box in the room.
                     A note beside it contains a clue.
                     Enter the correct code to unlock it.
@@ -89,7 +91,7 @@
 
                     <span>CLUE</span>
 
-                    <p>
+                    <p id="clue-text">
                         The first number is greater than 3.
                         The second number is twice the first.
                     </p>
@@ -97,7 +99,7 @@
                 </div>
 
 
-                <label for="answer">
+                <label for="answer" id="answer-label">
                     Enter your answer
                 </label>
 
@@ -110,15 +112,21 @@
 
                 <div class="puzzle-actions">
 
-                    <button class="btn btn-primary">
+                    <button type="button" class="btn btn-primary" id="submit-btn">
                         Submit Answer
                     </button>
 
-                    <button class="btn btn-hint">
+                    <button type="button" class="btn btn-hint" id="hint-btn">
                         💡 Hint
                     </button>
 
                 </div>
+
+                <!-- Messages from the game (filled in by js/game.js) -->
+
+                <div class="hint-box" id="hint-box" hidden></div>
+
+                <p class="feedback" id="feedback" role="status" aria-live="polite"></p>
 
             </div>
 
@@ -133,13 +141,16 @@
                 ESCAPE ROOM PUZZLE GAME
             </span>
 
-            <span>
+            <span id="footer-room">
                 Room 1 of 5
             </span>
 
         </footer>
 
     </main>
+
+    <script src="js/puzzles.js"></script>
+    <script src="js/game.js"></script>
 
 </body>
 

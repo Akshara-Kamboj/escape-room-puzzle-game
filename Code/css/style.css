@@ -1,797 +1,1211 @@
-/* =========================================
-   RESET
-========================================= */
+/* ==========================================================================
+   ESCAPE ROOM PUZZLE GAME — style.css
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+   1. THEME PALETTES   <- the ONLY place theme colors are defined
+   2. Base & typography
+   3. Buttons
+   4. Home page + theme selector
+   5. Instructions page
+   6. Game page
+   7. Victory / Game Over pages
+   8. Responsive + reduced motion
+
+   HOW THEMES WORK
+   js/themes.js sets  <html data-theme="midnight-mystery">.
+   Every rule below reads colors through variables such as var(--primary-color),
+   so switching the data-theme value re-colors the whole site.
+
+   TO ADD A NEW THEME: copy one block in section 1, change the data-theme name
+   and the colors, then add the theme to the THEMES list in js/themes.js.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. THEME PALETTES
+   --------------------------------------------------------------------------
+   Variables used by the whole site:
+     --bg-color            page background
+     --card-color          cards, panels, header surfaces
+     --text-color          main text
+     --muted-color         secondary text (checked for 4.5:1 contrast)
+     --primary-color       main buttons, progress bar, accents
+     --secondary-color     second buttons, clue box, accents
+     --border-color        borders and dividers
+   Helper variables (keep text readable on colored surfaces):
+     --on-primary-color    text color placed ON the primary color
+     --on-secondary-color  text color placed ON the secondary color
+     --accent-text-color   links, focus rings, selected borders, small labels
+     --success-color / --danger-color   Victory and Game Over screens
+     --page-bg             page background (solid or gradient)
+     --card-shadow         shadow used on cards
+   ========================================================================== */
+
+/* Theme 1: Lavender Dream (default). :root is also the fallback if
+   data-theme is missing or invalid. */
+:root,
+[data-theme="lavender-dream"] {
+  --bg-color: #F7F5FF;
+  --card-color: #FFFFFF;
+  --text-color: #1E1B2E;
+  --muted-color: #5B5675;
+  --primary-color: #7C3AED;
+  --secondary-color: #06B6D4;
+  --border-color: #DDD6FE;
+
+  --on-primary-color: #FFFFFF;
+  --on-secondary-color: #1E1B2E;
+  --accent-text-color: #6D28D9;
+  --success-color: #166534;
+  --danger-color: #B91C1C;
+
+  --page-bg: var(--bg-color);
+  --card-shadow: 0 14px 34px -16px color-mix(in srgb, var(--text-color) 35%, transparent);
+  color-scheme: light;
+}
+
+/* Theme 2: Midnight Mystery */
+[data-theme="midnight-mystery"] {
+  --bg-color: #0B1020;
+  --card-color: #151B2E;
+  --text-color: #F8FAFC;
+  --muted-color: #A3ACC2;
+  --primary-color: #8B5CF6;
+  --secondary-color: #22D3EE;
+  --border-color: #34304F;
+
+  --on-primary-color: #050814;
+  --on-secondary-color: #0B1020;
+  --accent-text-color: #A78BFA;
+  --success-color: #4ADE80;
+  --danger-color: #F87171;
+
+  --page-bg:
+    radial-gradient(900px 520px at 50% -10%,
+      color-mix(in srgb, var(--primary-color) 26%, transparent), transparent),
+    var(--bg-color);
+  --card-shadow: 0 18px 40px -16px rgb(0 0 0 / 0.7);
+  color-scheme: dark;
+}
+
+/* Theme 3: Enchanted Forest */
+[data-theme="enchanted-forest"] {
+  --bg-color: #F2F7F0;
+  --card-color: #FFFFFF;
+  --text-color: #20352A;
+  --muted-color: #4F6355;
+  --primary-color: #397653;
+  --secondary-color: #A3B18A;
+  --border-color: #D5E3D2;
+
+  --on-primary-color: #FFFFFF;
+  --on-secondary-color: #20352A;
+  --accent-text-color: #2F6648;
+  --success-color: #166534;
+  --danger-color: #B91C1C;
+
+  --page-bg: var(--bg-color);
+  --card-shadow: 0 14px 34px -16px color-mix(in srgb, var(--text-color) 40%, transparent);
+  color-scheme: light;
+}
+
+/* Theme 4: Retro Arcade (chunky offset shadow = arcade cabinet feel) */
+[data-theme="retro-arcade"] {
+  --bg-color: #FFF8E7;
+  --card-color: #FFFFFF;
+  --text-color: #28243D;
+  --muted-color: #5F5A75;
+  --primary-color: #E76F51;
+  --secondary-color: #2A9D8F;
+  --border-color: #F1D7B5;
+
+  --on-primary-color: #1F1B30;
+  --on-secondary-color: #1F1B30;
+  --accent-text-color: #B8442A;
+  --success-color: #166534;
+  --danger-color: #B91C1C;
+
+  --page-bg: var(--bg-color);
+  --card-shadow: 6px 6px 0 color-mix(in srgb, var(--primary-color) 40%, var(--border-color));
+  color-scheme: light;
+}
+
+/* Theme 5: Cyber Lab (soft neon glow) */
+[data-theme="cyber-lab"] {
+  --bg-color: #080B16;
+  --card-color: #111827;
+  --text-color: #F8FAFC;
+  --muted-color: #9AA7BD;
+  --primary-color: #3B82F6;
+  --secondary-color: #EC4899;
+  --border-color: #273449;
+
+  --on-primary-color: #080B16;
+  --on-secondary-color: #080B16;
+  --accent-text-color: #60A5FA;
+  --success-color: #4ADE80;
+  --danger-color: #F87171;
+
+  --page-bg:
+    radial-gradient(800px 480px at 85% -10%,
+      color-mix(in srgb, var(--secondary-color) 20%, transparent), transparent),
+    radial-gradient(900px 520px at 10% -10%,
+      color-mix(in srgb, var(--primary-color) 24%, transparent), transparent),
+    var(--bg-color);
+  --card-shadow:
+    0 0 0 1px color-mix(in srgb, var(--primary-color) 35%, transparent),
+    0 0 30px -8px color-mix(in srgb, var(--primary-color) 55%, transparent);
+  color-scheme: dark;
+}
+
+/* Theme 6: Sunset Escape (soft sunset gradient background) */
+[data-theme="sunset-escape"] {
+  --bg-color: #FFF5F2;
+  --card-color: #FFFFFF;
+  --text-color: #3D2932;
+  --muted-color: #6E5560;
+  --primary-color: #E76F51;
+  --secondary-color: #F4A261;
+  --border-color: #FAD4C8;
+
+  --on-primary-color: #2B1A20;
+  --on-secondary-color: #3D2932;
+  --accent-text-color: #B8432A;
+  --success-color: #166534;
+  --danger-color: #B91C1C;
+
+  --page-bg: linear-gradient(165deg,
+    var(--bg-color) 0%,
+    color-mix(in srgb, var(--secondary-color) 28%, var(--bg-color)) 100%);
+  --card-shadow: 0 14px 34px -16px color-mix(in srgb, var(--primary-color) 55%, transparent);
+  color-scheme: light;
 }
 
 
-/* =========================================
-   GLOBAL
-========================================= */
+/* ==========================================================================
+   2. BASE & TYPOGRAPHY
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-
-    background-color: #0b0f19;
-
-    color: #f8fafc;
-
-    min-height: 100vh;
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-color);
+  background: var(--page-bg);
+  background-attachment: fixed;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
+h1,
+h2,
+h3 {
+  margin: 0 0 0.5rem;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0 0 1rem;
+}
 
 a {
-    color: inherit;
+  color: var(--accent-text-color);
 }
 
-
-button,
-input {
-    font-family: inherit;
+/* Visible keyboard focus everywhere */
+:focus-visible {
+  outline: 3px solid var(--accent-text-color);
+  outline-offset: 3px;
 }
 
-
-/* =========================================
-   COMMON BUTTON
-========================================= */
-
-.btn {
-    display: inline-block;
-
-    padding: 14px 30px;
-
-    border-radius: 8px;
-
-    text-decoration: none;
-
-    font-weight: 600;
-
-    border: none;
-
-    cursor: pointer;
-
-    transition: 0.3s ease;
+/* Small uppercase labels (HOME, INSTRUCTIONS, RESULT pages) */
+.game-label,
+.small-label,
+.puzzle-label {
+  margin: 0 0 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-text-color);
 }
-
-
-.btn-primary {
-    background-color: #8b5cf6;
-
-    color: white;
-}
-
-
-.btn-primary:hover {
-    background-color: #7c3aed;
-
-    transform: translateY(-3px);
-}
-
-
-.btn-secondary {
-    border: 1px solid #475569;
-
-    color: #f8fafc;
-
-    background: transparent;
-}
-
-
-.btn-secondary:hover {
-    background-color: #1b2335;
-
-    transform: translateY(-3px);
-}
-
-
-.btn-hint {
-    background-color: #1e293b;
-
-    color: #22d3ee;
-
-    border: 1px solid #334155;
-}
-
-
-.btn-hint:hover {
-    background-color: #263449;
-}
-
-
-/* =========================================
-   HOME PAGE
-========================================= */
-
-.home-page {
-    min-height: 100vh;
-}
-
-
-.hero {
-    min-height: 100vh;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    padding: 40px 20px;
-
-    background:
-        radial-gradient(
-            circle at center,
-            #1b2335 0%,
-            #0b0f19 65%
-        );
-}
-
-
-.hero-content {
-    max-width: 800px;
-
-    text-align: center;
-}
-
-
-.game-label {
-    margin-bottom: 20px;
-
-    font-size: 0.85rem;
-
-    letter-spacing: 4px;
-
-    color: #22d3ee;
-
-    font-weight: 600;
-}
-
-
-.hero h1 {
-    margin-bottom: 20px;
-
-    font-size: clamp(3rem, 8vw, 6rem);
-
-    letter-spacing: 6px;
-}
-
-
-.game-description {
-    max-width: 600px;
-
-    margin: 0 auto 40px;
-
-    font-size: 1.1rem;
-
-    line-height: 1.7;
-
-    color: #94a3b8;
-}
-
-
-.home-buttons {
-    display: flex;
-
-    justify-content: center;
-
-    gap: 16px;
-
-    flex-wrap: wrap;
-}
-
-
-/* =========================================
-   INSTRUCTIONS PAGE
-========================================= */
-
-.page-container {
-    min-height: 100vh;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    padding: 40px 20px;
-
-    background:
-        radial-gradient(
-            circle at center,
-            #151b2b,
-            #0b0f19 70%
-        );
-}
-
-
-.instructions-card {
-    width: 100%;
-
-    max-width: 850px;
-
-    padding: 50px;
-
-    background-color: #151b2b;
-
-    border: 1px solid #263449;
-
-    border-radius: 16px;
-
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
-}
-
-
-.instructions-card h1 {
-    font-size: 2.8rem;
-
-    margin-bottom: 15px;
-}
-
-
-.intro-text {
-    color: #94a3b8;
-
-    line-height: 1.7;
-
-    margin-bottom: 35px;
-}
-
-
-.instructions-list {
-    display: grid;
-
-    gap: 18px;
-}
-
-
-.instruction-item {
-    display: flex;
-
-    gap: 20px;
-
-    padding: 20px;
-
-    background-color: #1b2335;
-
-    border-radius: 10px;
-
-    border: 1px solid #263449;
-}
-
-
-.instruction-number {
-    min-width: 45px;
-
-    height: 45px;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    border-radius: 8px;
-
-    background-color: #8b5cf6;
-
-    font-weight: bold;
-}
-
-
-.instruction-item h3 {
-    margin-bottom: 7px;
-}
-
-
-.instruction-item p {
-    color: #94a3b8;
-
-    line-height: 1.5;
-}
-
-
-.instruction-actions {
-    display: flex;
-
-    gap: 15px;
-
-    margin-top: 35px;
-}
-
-
-/* =========================================
-   GAME PAGE
-========================================= */
-
-.game-page {
-    min-height: 100vh;
-
-    display: flex;
-
-    flex-direction: column;
-}
-
-
-/* =========================================
-   GAME HEADER
-========================================= */
-
-.game-header {
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    padding: 20px 5%;
-
-    border-bottom: 1px solid #263449;
-
-    background-color: #0f1522;
-}
-
-
-.logo {
-    font-size: 1.1rem;
-
-    font-weight: bold;
-
-    letter-spacing: 2px;
-}
-
-
-.game-status {
-    display: flex;
-
-    gap: 15px;
-}
-
-
-.status-box {
-    min-width: 90px;
-
-    padding: 10px 15px;
-
-    text-align: center;
-
-    border: 1px solid #263449;
-
-    border-radius: 8px;
-
-    background-color: #151b2b;
-}
-
-
-.status-box span {
-    display: block;
-
-    font-size: 0.7rem;
-
-    color: #94a3b8;
-
-    margin-bottom: 4px;
-}
-
-
-.status-box strong {
-    font-size: 1rem;
-
-    color: #22d3ee;
-}
-
-
-/* =========================================
-   GAME AREA
-========================================= */
-
-.game-area {
-    width: 90%;
-
-    max-width: 1000px;
-
-    margin: auto;
-
-    padding: 50px 0;
-}
-
-
-.room-header {
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: end;
-
-    margin-bottom: 20px;
-}
-
 
 .small-label {
-    font-size: 0.75rem;
-
-    letter-spacing: 2px;
-
-    color: #22d3ee;
-
-    margin-bottom: 8px;
+  color: var(--muted-color);
+  margin-bottom: 0.15rem;
 }
 
+
+/* ==========================================================================
+   3. BUTTONS
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 46px;
+  padding: 0.7rem 1.6rem;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  font: inherit;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease,
+    background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--text-color) 45%, transparent);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--primary-color);
+  color: var(--on-primary-color);
+}
+
+.btn-primary:hover:not(:disabled) {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary-color) 30%, transparent);
+}
+
+.btn-secondary {
+  background: var(--card-color);
+  color: var(--accent-text-color);
+  border-color: var(--accent-text-color);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--accent-text-color) 10%, var(--card-color));
+}
+
+.btn-hint {
+  background: var(--secondary-color);
+  color: var(--on-secondary-color);
+}
+
+.btn-hint:hover:not(:disabled) {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--secondary-color) 35%, transparent);
+}
+
+
+/* ==========================================================================
+   4. HOME PAGE + THEME SELECTOR
+   ========================================================================== */
+
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 3.5rem);
+  min-height: 100vh;
+  padding: clamp(1.25rem, 5vw, 3.5rem) 1rem 3rem;
+}
+
+.hero {
+  width: min(100%, 760px);
+}
+
+.hero-content {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(2rem, 6vw, 4rem) clamp(1.25rem, 5vw, 3rem);
+  text-align: center;
+  background: var(--card-color);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  box-shadow: var(--card-shadow);
+}
+
+/* thin gradient strip along the top of the hero card */
+.hero-content::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+.hero-content h1 {
+  font-size: clamp(2.5rem, 9vw, 4.75rem);
+  letter-spacing: 0.06em;
+  margin-bottom: 1rem;
+}
+
+.game-description {
+  max-width: 34ch;
+  margin: 0 auto 2rem;
+  font-size: 1.15rem;
+  color: var(--muted-color);
+}
+
+.home-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.9rem;
+}
+
+/* ---------- Theme selector section ---------- */
+
+.theme-section {
+  width: min(100%, 1040px);
+}
+
+.theme-section__header {
+  max-width: 60ch;
+  margin: 0 auto 1.5rem;
+  text-align: center;
+}
+
+.theme-section__header h2 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
+.theme-section__header p {
+  margin: 0;
+  color: var(--muted-color);
+}
+
+.theme-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.theme-card {
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+
+/* The real radio button stays in the page (keyboard + screen readers)
+   but is visually hidden; the card itself is the visible control. */
+.theme-card__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.theme-card__body {
+  display: grid;
+  gap: 0.75rem;
+  height: 100%;
+  padding: 1rem;
+  background: var(--card-color);
+  border: 2px solid var(--border-color);
+  border-radius: 18px;
+  box-shadow: 0 10px 24px -18px color-mix(in srgb, var(--text-color) 55%, transparent);
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.theme-card:hover .theme-card__body {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--accent-text-color) 55%, var(--border-color));
+}
+
+.theme-card__input:focus-visible + .theme-card__body {
+  outline: 3px solid var(--accent-text-color);
+  outline-offset: 3px;
+}
+
+.theme-card__input:checked + .theme-card__body {
+  border-color: var(--accent-text-color);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-text-color) 22%, transparent);
+}
+
+/* Mini preview: carries its own data-theme, so it shows ITS palette,
+   whichever theme the page is using. */
+.theme-preview {
+  display: grid;
+  gap: 0.6rem;
+  padding: 0.65rem;
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+}
+
+.theme-preview__window {
+  display: grid;
+  gap: 0.4rem;
+  padding: 0.6rem;
+  background: var(--card-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.theme-preview__line {
+  display: block;
+  height: 8px;
+  border-radius: 99px;
+  background: var(--text-color);
+  opacity: 0.8;
+  width: 70%;
+}
+
+.theme-preview__line--short {
+  width: 45%;
+  opacity: 0.35;
+}
+
+.theme-preview__button {
+  display: block;
+  width: 38%;
+  height: 14px;
+  margin-top: 0.15rem;
+  border-radius: 6px;
+  background: var(--primary-color);
+}
+
+.theme-preview__swatches {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.theme-swatch {
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--text-color) 30%, transparent);
+}
+
+.theme-swatch--bg { background: var(--bg-color); }
+.theme-swatch--card { background: var(--card-color); }
+.theme-swatch--primary { background: var(--primary-color); }
+.theme-swatch--secondary { background: var(--secondary-color); }
+.theme-swatch--text { background: var(--text-color); }
+
+.theme-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-height: 1.75rem;
+}
+
+.theme-card__name {
+  font-weight: 800;
+  font-size: 1.05rem;
+}
+
+.theme-card__desc {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--muted-color);
+}
+
+.theme-card__badges {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.badge {
+  display: none;
+  align-items: center;
+  padding: 0.1rem 0.6rem;
+  border-radius: 99px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.badge--applied {
+  background: var(--accent-text-color);
+  color: var(--card-color);
+}
+
+.badge--preview {
+  border: 1px solid var(--accent-text-color);
+  color: var(--accent-text-color);
+}
+
+.theme-card.is-applied .badge--applied,
+.theme-card.is-previewing .badge--preview {
+  display: inline-flex;
+}
+
+.theme-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.9rem;
+  margin-top: 1.75rem;
+}
+
+.theme-status {
+  min-height: 1.6em;
+  margin: 1rem 0 0;
+  text-align: center;
+  font-weight: 600;
+}
+
+.theme-status.is-applied {
+  color: var(--success-color);
+  animation: status-pop 0.35s ease;
+}
+
+@keyframes status-pop {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ---------- Difficulty selection (difficulty.html) ---------- */
+
+.difficulty-section {
+  width: min(100%, 1040px);
+  margin: auto;
+}
+
+.difficulty-section__header {
+  max-width: 56ch;
+  margin: 0 auto 1.75rem;
+  text-align: center;
+}
+
+.difficulty-section__header h1 {
+  font-size: clamp(2rem, 6vw, 3rem);
+}
+
+.difficulty-section__header p:last-child {
+  margin: 0;
+  color: var(--muted-color);
+}
+
+.difficulty-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.difficulty-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  background: var(--card-color);
+  border: 2px solid var(--border-color);
+  border-radius: 20px;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.difficulty-card:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--accent-text-color) 55%, var(--border-color));
+}
+
+.difficulty-card.is-selected {
+  border-color: var(--accent-text-color);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-text-color) 22%, transparent);
+}
+
+.difficulty-card.is-selected .badge {
+  display: inline-flex;
+}
+
+.difficulty-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 1.75rem;
+}
+
+.difficulty-pips {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.difficulty-pip {
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  border: 2px solid var(--accent-text-color);
+}
+
+.difficulty-pip.is-on {
+  background: var(--accent-text-color);
+}
+
+.difficulty-card__name {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.difficulty-card__desc {
+  flex: 1;
+  margin: 0;
+  color: var(--muted-color);
+}
+
+.difficulty-facts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+  margin: 0.25rem 0;
+}
+
+.difficulty-fact {
+  padding: 0.6rem 0.75rem;
+  text-align: center;
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+}
+
+.difficulty-fact dt {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-color);
+}
+
+.difficulty-fact dd {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.difficulty-card__btn {
+  width: 100%;
+}
+
+.difficulty-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.9rem;
+  margin-top: 1.75rem;
+}
+
+/* Small level label next to the logo on the game page */
+.level-badge {
+  display: inline-block;
+  margin-left: 0.6rem;
+  padding: 0.05rem 0.65rem;
+  border: 1px solid var(--accent-text-color);
+  border-radius: 99px;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+/* ==========================================================================
+   5. INSTRUCTIONS PAGE
+   ========================================================================== */
+
+.page-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1.5rem 1rem;
+}
+
+.instructions-card {
+  width: min(100%, 760px);
+  padding: clamp(1.5rem, 5vw, 3rem);
+  background: var(--card-color);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  box-shadow: var(--card-shadow);
+}
+
+.instructions-card h1 {
+  font-size: clamp(2rem, 6vw, 2.75rem);
+}
+
+.intro-text {
+  margin-bottom: 1.75rem;
+  color: var(--muted-color);
+  font-size: 1.05rem;
+}
+
+.instructions-list {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.instruction-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 1.1rem;
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+}
+
+.instruction-number {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 12px;
+  background: var(--primary-color);
+  color: var(--on-primary-color);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.instruction-item h3 {
+  margin-bottom: 0.2rem;
+  font-size: 1.1rem;
+}
+
+.instruction-item p {
+  margin: 0;
+  color: var(--muted-color);
+}
+
+.instruction-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.9rem;
+  margin-top: 2rem;
+}
+
+
+/* ==========================================================================
+   6. GAME PAGE
+   ========================================================================== */
+
+.game-page {
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 880px);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.game-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  padding: 0.75rem 1.1rem;
+  margin-bottom: 1.5rem;
+  background: var(--card-color);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: 0 10px 24px -18px color-mix(in srgb, var(--text-color) 55%, transparent);
+}
+
+.logo {
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--accent-text-color);
+}
+
+.game-status {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.status-box {
+  display: grid;
+  min-width: 5.5rem;
+  padding: 0.35rem 0.9rem;
+  text-align: center;
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  line-height: 1.25;
+}
+
+.status-box span {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--muted-color);
+}
+
+.status-box strong {
+  font-size: 1.3rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.game-area {
+  flex: 1;
+}
+
+.room-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.9rem;
+}
 
 .room-header h1 {
-    font-size: 2.5rem;
+  margin: 0;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
 }
-
 
 .progress-text {
-    color: #94a3b8;
+  font-weight: 700;
+  color: var(--accent-text-color);
 }
-
-
-/* =========================================
-   PROGRESS BAR
-========================================= */
 
 .progress-bar {
-    width: 100%;
-
-    height: 8px;
-
-    background-color: #1e293b;
-
-    border-radius: 20px;
-
-    overflow: hidden;
-
-    margin-bottom: 40px;
+  height: 12px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--text-color) 14%, var(--bg-color));
 }
 
-
+/* 20% is the starting value; js/game.js updates the width as rooms change. */
 .progress-fill {
-    width: 20%;
-
-    height: 100%;
-
-    background-color: #8b5cf6;
-
-    border-radius: inherit;
+  width: 20%;
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  transition: width 0.4s ease;
 }
-
-
-/* =========================================
-   PUZZLE CARD
-========================================= */
 
 .puzzle-card {
-    max-width: 750px;
-
-    margin: auto;
-
-    padding: 40px;
-
-    background-color: #151b2b;
-
-    border: 1px solid #263449;
-
-    border-radius: 16px;
-
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  padding: clamp(1.25rem, 4vw, 2.25rem);
+  background: var(--card-color);
+  border: 1px solid var(--border-color);
+  border-radius: 22px;
+  box-shadow: var(--card-shadow);
 }
-
-
-.puzzle-label {
-    color: #22d3ee;
-
-    font-size: 0.8rem;
-
-    letter-spacing: 2px;
-
-    margin-bottom: 12px;
-}
-
 
 .puzzle-card h2 {
-    font-size: 2rem;
-
-    margin-bottom: 15px;
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
 }
-
 
 .puzzle-description {
-    color: #94a3b8;
-
-    line-height: 1.7;
-
-    margin-bottom: 25px;
+  max-width: 60ch;
+  color: var(--muted-color);
 }
-
 
 .clue-box {
-    padding: 20px;
-
-    margin-bottom: 25px;
-
-    background-color: #1b2335;
-
-    border-left: 4px solid #8b5cf6;
-
-    border-radius: 8px;
+  margin: 1.25rem 0 1.5rem;
+  padding: 1rem 1.2rem;
+  background: color-mix(in srgb, var(--secondary-color) 14%, var(--card-color));
+  border: 1px solid var(--border-color);
+  border-left: 5px solid var(--secondary-color);
+  border-radius: 12px;
 }
-
 
 .clue-box span {
-    display: block;
-
-    font-size: 0.75rem;
-
-    color: #22d3ee;
-
-    letter-spacing: 2px;
-
-    margin-bottom: 8px;
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--accent-text-color);
 }
-
 
 .clue-box p {
-    color: #cbd5e1;
-
-    line-height: 1.6;
+  margin: 0;
 }
-
 
 .puzzle-card label {
-    display: block;
-
-    margin-bottom: 8px;
-
-    font-weight: 600;
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 700;
 }
 
-
-.puzzle-card input {
-    width: 100%;
-
-    padding: 15px;
-
-    background-color: #0b0f19;
-
-    border: 1px solid #334155;
-
-    border-radius: 8px;
-
-    color: white;
-
-    outline: none;
-
-    margin-bottom: 20px;
+.puzzle-card input[type="text"] {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.75rem 1rem;
+  font: inherit;
+  color: var(--text-color);
+  background: var(--bg-color);
+  /* stronger than --border-color so the field edge is easy to see */
+  border: 2px solid color-mix(in srgb, var(--text-color) 45%, var(--card-color));
+  border-radius: 12px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-
-.puzzle-card input:focus {
-    border-color: #8b5cf6;
+.puzzle-card input[type="text"]::placeholder {
+  color: var(--muted-color);
+  opacity: 1;
 }
 
+.puzzle-card input[type="text"]:hover {
+  border-color: var(--accent-text-color);
+}
+
+.puzzle-card input[type="text"]:focus-visible {
+  border-color: var(--accent-text-color);
+  outline: 3px solid color-mix(in srgb, var(--accent-text-color) 35%, transparent);
+  outline-offset: 2px;
+}
 
 .puzzle-actions {
-    display: flex;
-
-    gap: 12px;
-
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 1.5rem;
 }
-
-
-/* =========================================
-   GAME FOOTER
-========================================= */
 
 .game-footer {
-    display: flex;
-
-    justify-content: space-between;
-
-    padding: 18px 5%;
-
-    border-top: 1px solid #263449;
-
-    color: #64748b;
-
-    font-size: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--muted-color);
 }
 
 
-/* =========================================
-   RESULT PAGES
-========================================= */
+/* ---------- Game feedback, hints and warnings (used by js/game.js) ---------- */
+
+.feedback {
+  min-height: 1.6em;
+  margin: 1rem 0 0;
+  font-weight: 600;
+}
+
+.feedback.is-success { color: var(--success-color); }
+.feedback.is-error { color: var(--danger-color); }
+.feedback.is-info { color: var(--muted-color); }
+
+.hint-box {
+  margin-top: 1.25rem;
+  padding: 0.85rem 1.1rem;
+  background: color-mix(in srgb, var(--primary-color) 9%, var(--card-color));
+  border: 1px solid var(--border-color);
+  border-left: 5px solid var(--primary-color);
+  border-radius: 12px;
+}
+
+.hint-box[hidden] { display: none; }
+
+.hint-box p { margin: 0; }
+.hint-box p + p { margin-top: 0.5rem; }
+
+/* Timer warning in the last minute */
+.status-box.is-low strong { color: var(--danger-color); }
+.status-box.is-low { border-color: var(--danger-color); }
+
+/* Small shake after a wrong answer (switched off by reduced motion below) */
+.puzzle-card input[type="text"].is-wrong {
+  border-color: var(--danger-color);
+  animation: shake 0.3s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+
+/* ==========================================================================
+   7. VICTORY / GAME OVER PAGES
+   ========================================================================== */
 
 .result-page {
-    min-height: 100vh;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    padding: 30px 20px;
-
-    background:
-        radial-gradient(
-            circle at center,
-            #151b2b,
-            #0b0f19 70%
-        );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1.5rem 1rem;
 }
-
 
 .result-card {
-    width: 100%;
-
-    max-width: 650px;
-
-    text-align: center;
-
-    padding: 55px 40px;
-
-    background-color: #151b2b;
-
-    border: 1px solid #263449;
-
-    border-radius: 16px;
-
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+  width: min(100%, 580px);
+  padding: clamp(1.75rem, 5vw, 3rem);
+  text-align: center;
+  background: var(--card-color);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  box-shadow: var(--card-shadow);
 }
 
+/* Each result card picks its own status color */
+.victory-card { --status-color: var(--success-color); }
+.game-over-card { --status-color: var(--danger-color); }
+
+.result-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 6px;
+  background: var(--status-color);
+}
 
 .result-icon {
-    width: 70px;
-
-    height: 70px;
-
-    margin: 0 auto 25px;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    border-radius: 50%;
-
-    background-color: #8b5cf6;
-
-    font-size: 2rem;
-
-    font-weight: bold;
+  display: grid;
+  place-items: center;
+  width: 5rem;
+  height: 5rem;
+  margin: 0.5rem auto 1.25rem;
+  border: 3px solid var(--status-color);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--status-color) 12%, var(--card-color));
+  color: var(--status-color);
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
 }
 
+.result-card .game-label {
+  color: var(--status-color);
+}
 
 .result-card h1 {
-    font-size: 3rem;
-
-    margin-bottom: 20px;
+  font-size: clamp(2rem, 8vw, 3rem);
+  letter-spacing: 0.04em;
 }
-
 
 .result-message {
-    color: #94a3b8;
-
-    line-height: 1.7;
-
-    margin-bottom: 35px;
+  max-width: 40ch;
+  margin: 0 auto 1.75rem;
+  color: var(--muted-color);
 }
-
 
 .result-stats {
-    display: flex;
-
-    justify-content: center;
-
-    gap: 20px;
-
-    margin-bottom: 35px;
-
-    flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.9rem;
+  margin-bottom: 2rem;
 }
-
 
 .result-stat {
-    min-width: 150px;
-
-    padding: 20px;
-
-    background-color: #1b2335;
-
-    border-radius: 10px;
-
-    border: 1px solid #263449;
+  display: grid;
+  gap: 0.15rem;
+  padding: 1rem 0.75rem;
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
 }
-
 
 .result-stat span {
-    display: block;
-
-    font-size: 0.7rem;
-
-    color: #94a3b8;
-
-    margin-bottom: 8px;
-
-    letter-spacing: 1px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--muted-color);
 }
-
 
 .result-stat strong {
-    font-size: 1.5rem;
-
-    color: #22d3ee;
+  font-size: 1.75rem;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
 }
-
 
 .result-actions {
-    display: flex;
-
-    justify-content: center;
-
-    gap: 15px;
-
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.9rem;
 }
 
 
-/* =========================================
-   RESPONSIVE DESIGN
-========================================= */
+/* ==========================================================================
+   8. RESPONSIVE + REDUCED MOTION
+   ========================================================================== */
 
-@media (max-width: 700px) {
+/* Tablet: two theme cards per row */
+@media (min-width: 600px) {
+  .theme-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
-    .game-header {
-        flex-direction: column;
+/* Three difficulty cards side by side once there is room */
+@media (min-width: 820px) {
+  .difficulty-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 
-        gap: 15px;
+/* Desktop: three theme cards per row */
+@media (min-width: 960px) {
+  .theme-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 
-        text-align: center;
-    }
+/* Phones: full-width buttons that are easy to tap */
+@media (max-width: 520px) {
+  .home-buttons .btn,
+  .theme-actions .btn,
+  .puzzle-actions .btn,
+  .result-actions .btn,
+  .instruction-actions .btn,
+  .difficulty-actions .btn {
+    flex: 1 1 100%;
+  }
 
+  .instruction-item {
+    padding: 0.85rem;
+  }
 
-    .room-header {
-        flex-direction: column;
+  .game-status {
+    width: 100%;
+  }
 
-        align-items: flex-start;
+  .status-box {
+    flex: 1;
+  }
+}
 
-        gap: 10px;
-    }
+/* Respect "reduce motion" system setting */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 
-
-    .instructions-card {
-        padding: 30px 20px;
-    }
-
-
-    .puzzle-card {
-        padding: 25px 20px;
-    }
-
-
-    .result-card {
-        padding: 40px 20px;
-    }
-
-
-    .result-card h1 {
-        font-size: 2.2rem;
-    }
-
-
-    .game-footer {
-        flex-direction: column;
-
-        gap: 8px;
-
-        text-align: center;
-    }
-
+  .btn:hover:not(:disabled),
+  .theme-card:hover .theme-card__body,
+  .difficulty-card:hover {
+    transform: none;
+  }
 }

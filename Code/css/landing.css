@@ -1,0 +1,1145 @@
+/* ==========================================================================
+   ESCAPE ROOM PUZZLE GAME — css/landing.css
+
+   Styles for the landing page (index.html) only. It loads AFTER style.css
+   and uses the same theme variables (--primary-color, --card-color, ...),
+   so every theme in css/style.css re-colors this page automatically.
+
+   1. Layout helpers + icons
+   2. Navigation
+   3. Hero
+   4. Stats strip
+   5. Section headings
+   6. Level cards
+   7. How it works
+   8. Features
+   9. Theme selector (spacing only; the cards live in style.css)
+   10. Final call to action
+   11. Footer
+   12. Reveal animation, responsive, reduced motion
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. LAYOUT HELPERS + ICONS
+   ========================================================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+.container {
+  width: min(100% - 2rem, 1120px);
+  margin-inline: auto;
+}
+
+.landing {
+  overflow-x: clip;            /* decorative shapes can never cause sideways scroll */
+}
+
+/* Jump targets stop below the sticky navigation bar */
+.landing section[id],
+#theme-selector {
+  scroll-margin-top: 5rem;
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: none;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  background: var(--primary-color);
+  color: var(--on-primary-color);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.gradient-text {
+  color: var(--accent-text-color);              /* fallback */
+  background: linear-gradient(90deg, var(--accent-text-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.btn-lg {
+  min-height: 54px;
+  padding: 0.85rem 2rem;
+  font-size: 1.05rem;
+}
+
+/* Level colors (fixed hues so Easy / Medium / Hard read the same in any theme) */
+.level-card--easy   { --level-color: #10B981; }
+.level-card--medium { --level-color: var(--primary-color); }
+.level-card--hard   { --level-color: #F97316; }
+
+
+/* ==========================================================================
+   2. NAVIGATION
+   ========================================================================== */
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--card-color) 82%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  backdrop-filter: blur(14px) saturate(1.4);
+  border-bottom: 1px solid var(--border-color);
+  transition: box-shadow 0.2s ease;
+}
+
+.site-nav.is-scrolled {
+  box-shadow: 0 10px 28px -18px color-mix(in srgb, var(--text-color) 60%, transparent);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 68px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.brand__mark {
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: var(--on-primary-color);
+  box-shadow: 0 8px 18px -10px var(--primary-color);
+}
+
+.brand__mark svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.brand__name {
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+}
+
+.nav-panel {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: auto;
+}
+
+.nav-links {
+  display: flex;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-link {
+  display: block;
+  padding: 0.5rem 0.85rem;
+  border-radius: 10px;
+  color: var(--muted-color);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.nav-link:hover,
+.nav-link.is-active {
+  color: var(--text-color);
+  background: color-mix(in srgb, var(--primary-color) 12%, transparent);
+}
+
+.nav-theme {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--border-color);
+  border-radius: 99px;
+  background: var(--card-color);
+  color: var(--accent-text-color);
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.nav-theme:hover {
+  border-color: var(--accent-text-color);
+  background: color-mix(in srgb, var(--accent-text-color) 8%, var(--card-color));
+}
+
+.nav-theme .icon {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.nav-play {
+  min-height: 42px;
+  padding: 0.5rem 1.2rem;
+}
+
+/* Hamburger button (phones and small tablets only) */
+.nav-toggle {
+  display: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--card-color);
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.nav-toggle__bars,
+.nav-toggle__bars::before,
+.nav-toggle__bars::after {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.nav-toggle__bars {
+  position: relative;
+}
+
+.nav-toggle__bars::before,
+.nav-toggle__bars::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.nav-toggle__bars::before { top: -6px; }
+.nav-toggle__bars::after  { top: 6px; }
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars { background: transparent; }
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars::before { transform: translateY(6px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars::after  { transform: translateY(-6px) rotate(-45deg); }
+
+
+/* ==========================================================================
+   3. HERO
+   ========================================================================== */
+
+.landing-hero {
+  position: relative;
+  padding: clamp(2rem, 6vw, 4.5rem) 0 clamp(2.5rem, 6vw, 4rem);
+}
+
+/* soft color wash + faint grid behind the hero */
+.landing-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(600px 380px at 85% 20%,
+      color-mix(in srgb, var(--secondary-color) 22%, transparent), transparent),
+    radial-gradient(700px 420px at 10% 0%,
+      color-mix(in srgb, var(--primary-color) 20%, transparent), transparent);
+}
+
+.landing-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.5;
+  background-image:
+    linear-gradient(var(--border-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse at 70% 40%, #000 0%, transparent 70%);
+  mask-image: radial-gradient(ellipse at 70% 40%, #000 0%, transparent 70%);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 3rem);
+}
+
+.hero-copy {
+  animation: rise-in 0.7s ease both;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0 0 1.25rem;
+  padding: 0.4rem 0.95rem;
+  border: 1px solid var(--border-color);
+  border-radius: 99px;
+  background: var(--card-color);
+  color: var(--accent-text-color);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hero-badge__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--secondary-color);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--secondary-color) 30%, transparent);
+}
+
+.hero-copy h1 {
+  margin-bottom: 1.1rem;
+  font-size: clamp(2.2rem, 6.4vw, 3.9rem);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+}
+
+.hero-copy h1 .gradient-text {
+  display: block;
+}
+
+.hero-lead {
+  max-width: 52ch;
+  margin-bottom: 1.75rem;
+  font-size: clamp(1.02rem, 2vw, 1.18rem);
+  color: var(--muted-color);
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
+/* ---------- hero scene ---------- */
+
+.hero-visual {
+  position: relative;
+  width: min(100%, 440px);
+  margin-inline: auto;
+  animation: rise-in 0.8s 0.15s ease both;
+}
+
+.scene {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.stop-primary    { stop-color: var(--primary-color); }
+.stop-secondary  { stop-color: var(--secondary-color); }
+.stop-door-top   { stop-color: color-mix(in srgb, var(--primary-color) 78%, var(--card-color)); }
+.stop-door-bottom { stop-color: color-mix(in srgb, var(--primary-color) 70%, #000); }
+
+.scene-ring {
+  fill: none;
+  stroke: var(--border-color);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 9;
+  stroke-linecap: round;
+}
+
+.scene-ring--inner { opacity: 0.7; }
+
+.scene-shadow { fill: var(--text-color); opacity: 0.14; }
+
+.door-frame {
+  fill: color-mix(in srgb, var(--primary-color) 22%, var(--card-color));
+  stroke: color-mix(in srgb, var(--primary-color) 55%, var(--border-color));
+  stroke-width: 3;
+}
+
+.door-panel {
+  fill: none;
+  stroke: #fff;
+  stroke-opacity: 0.2;
+  stroke-width: 2;
+}
+
+.keyhole-glow {
+  fill: var(--secondary-color);
+  opacity: 0.35;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: keyhole-pulse 3.6s ease-in-out infinite;
+}
+
+.keyhole-plate { fill: var(--card-color); stroke: var(--secondary-color); stroke-width: 3; }
+.keyhole-hole  { fill: color-mix(in srgb, var(--primary-color) 55%, #000); }
+.door-handle   { fill: var(--secondary-color); }
+
+.piece {
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.piece--cyan {
+  fill: color-mix(in srgb, var(--secondary-color) 35%, var(--card-color));
+  stroke: var(--secondary-color);
+}
+
+.piece--purple {
+  fill: color-mix(in srgb, var(--primary-color) 28%, var(--card-color));
+  stroke: var(--primary-color);
+}
+
+.key-line {
+  fill: none;
+  stroke: var(--accent-text-color);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.bubble {
+  fill: var(--card-color);
+  stroke: var(--accent-text-color);
+  stroke-width: 2.5;
+}
+
+.bubble-text {
+  fill: var(--accent-text-color);
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.spark { fill: var(--primary-color); opacity: 0.8; }
+.spark--cyan { fill: var(--secondary-color); }
+
+/* slow, gentle floating (switched off by reduced motion in style.css) */
+.float {
+  animation: float-y 7s ease-in-out infinite;
+}
+
+.float--b { animation-duration: 8s;   animation-delay: -2s; }
+.float--c { animation-duration: 9s;   animation-delay: -4s; }
+.float--d { animation-duration: 6.5s; animation-delay: -1s; }
+.float--e { animation-duration: 7.5s; animation-delay: -3s; }
+.float--f { animation-duration: 8.5s; animation-delay: -5s; }
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+@keyframes keyhole-pulse {
+  0%, 100% { transform: scale(0.9); opacity: 0.25; }
+  50%      { transform: scale(1.1); opacity: 0.5; }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* glass chips sitting on top of the scene */
+.chip {
+  position: absolute;
+  display: grid;
+  gap: 0.1rem;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--card-color) 88%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--card-shadow);
+}
+
+.chip__label {
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-color);
+}
+
+.chip__time {
+  font-size: 1.6rem;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-text-color);
+}
+
+.chip__text {
+  max-width: 17ch;
+  font-size: 0.85rem;
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+.chip--clock { top: 4%;     right: 0; }
+.chip--clue  { bottom: 6%;  left: 0; }
+
+
+/* ==========================================================================
+   4. STATS STRIP
+   ========================================================================== */
+
+.stats-wrap {
+  position: relative;
+  z-index: 1;
+}
+
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0.75rem;
+  list-style: none;
+  border: 1px solid var(--border-color);
+  border-radius: 22px;
+  background: var(--card-color);
+  box-shadow: var(--card-shadow);
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.5rem;
+}
+
+.stat__icon {
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  flex: none;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--primary-color) 14%, var(--card-color));
+  color: var(--accent-text-color);
+}
+
+.stat__text {
+  display: grid;
+  line-height: 1.3;
+  min-width: 0;
+}
+
+.stat__text strong {
+  font-size: 0.95rem;
+}
+
+.stat__text span {
+  font-size: 0.82rem;
+  color: var(--muted-color);
+}
+
+
+/* ==========================================================================
+   5. SECTION HEADINGS + BANDS
+   ========================================================================== */
+
+.band {
+  padding: clamp(3rem, 8vw, 5.5rem) 0;
+}
+
+.band--tint {
+  background: color-mix(in srgb, var(--primary-color) 6%, var(--bg-color));
+  border-block: 1px solid var(--border-color);
+}
+
+.section-head {
+  max-width: 60ch;
+  margin: 0 auto clamp(1.75rem, 4vw, 2.75rem);
+  text-align: center;
+}
+
+.section-head h2 {
+  font-size: clamp(1.7rem, 4.5vw, 2.5rem);
+}
+
+.section-head p:last-child {
+  margin: 0;
+  color: var(--muted-color);
+}
+
+.eyebrow {
+  margin: 0 0 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-text-color);
+}
+
+.section-note {
+  margin: 2rem 0 0;
+  text-align: center;
+  color: var(--muted-color);
+}
+
+
+/* ==========================================================================
+   6. LEVEL CARDS
+   ========================================================================== */
+
+.level-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.level-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow: hidden;
+  padding: 1.5rem 1.4rem 1.4rem;
+  border: 1px solid var(--border-color);
+  border-radius: 22px;
+  background: var(--card-color);
+  box-shadow: var(--card-shadow);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* colored strip along the top */
+.level-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 6px;
+  background: var(--level-color);
+}
+
+.level-card:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--level-color) 60%, var(--border-color));
+}
+
+.level-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.level-card .difficulty-pip {
+  border-color: var(--level-color);
+}
+
+.level-card .difficulty-pip.is-on {
+  background: var(--level-color);
+}
+
+.level-tag {
+  padding: 0.15rem 0.7rem;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--level-color) 16%, var(--card-color));
+  border: 1px solid color-mix(in srgb, var(--level-color) 45%, var(--card-color));
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+.level-card h3 {
+  margin: 0;
+  font-size: 1.7rem;
+}
+
+.level-card__desc {
+  flex: 1;
+  margin: 0;
+  color: var(--muted-color);
+}
+
+.level-card .difficulty-fact {
+  border-color: color-mix(in srgb, var(--level-color) 30%, var(--border-color));
+}
+
+.level-card__btn {
+  width: 100%;
+}
+
+.level-card__btn:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--level-color) 16%, var(--card-color));
+}
+
+
+/* ==========================================================================
+   7. HOW IT WORKS
+   ========================================================================== */
+
+.steps {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* connecting line, vertical on phones */
+.steps::before {
+  content: "";
+  position: absolute;
+  top: 2rem;
+  bottom: 2rem;
+  left: 2rem;
+  width: 0;
+  border-left: 2px dashed color-mix(in srgb, var(--accent-text-color) 45%, var(--border-color));
+}
+
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  column-gap: 1.1rem;
+  align-items: start;
+}
+
+.step__icon {
+  position: relative;
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  border: 2px solid var(--accent-text-color);
+  border-radius: 20px;
+  background: var(--card-color);
+  color: var(--accent-text-color);
+  box-shadow: var(--card-shadow);
+}
+
+.step__icon .icon {
+  width: 1.8rem;
+  height: 1.8rem;
+}
+
+.step__num {
+  position: absolute;
+  top: -0.6rem;
+  right: -0.6rem;
+  display: grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: var(--on-primary-color);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.step h3 {
+  margin: 0.2rem 0 0.25rem;
+  font-size: 1.2rem;
+}
+
+.step p {
+  margin: 0;
+  color: var(--muted-color);
+}
+
+
+/* ==========================================================================
+   8. FEATURES
+   ========================================================================== */
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.feature {
+  padding: 1.4rem;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  background: var(--card-color);
+  box-shadow: var(--card-shadow);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.feature:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--accent-text-color) 55%, var(--border-color));
+}
+
+.feature__icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 1rem;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--primary-color) 14%, var(--card-color));
+  color: var(--accent-text-color);
+}
+
+.feature h3 {
+  margin-bottom: 0.35rem;
+  font-size: 1.15rem;
+}
+
+.feature p {
+  margin: 0;
+  color: var(--muted-color);
+}
+
+
+/* ==========================================================================
+   9. THEME SELECTOR (cards + behaviour come from style.css and themes.js)
+   ========================================================================== */
+
+.theme-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+
+/* ==========================================================================
+   10. FINAL CALL TO ACTION
+   ========================================================================== */
+
+.cta-wrap {
+  padding: clamp(3rem, 8vw, 5.5rem) 0;
+}
+
+.cta {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(2.25rem, 7vw, 4.5rem) clamp(1.25rem, 5vw, 3.5rem);
+  border: 1px solid color-mix(in srgb, var(--primary-color) 40%, var(--border-color));
+  border-radius: 28px;
+  text-align: center;
+  background:
+    radial-gradient(500px 260px at 100% 0%,
+      color-mix(in srgb, var(--secondary-color) 24%, transparent), transparent),
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--primary-color) 20%, var(--card-color)),
+      color-mix(in srgb, var(--primary-color) 6%, var(--card-color)));
+  box-shadow: var(--card-shadow);
+}
+
+/* big outlined door sitting behind the text */
+.cta__door {
+  position: absolute;
+  right: -1.5rem;
+  bottom: -1rem;
+  width: clamp(9rem, 28vw, 15rem);
+  height: auto;
+  fill: none;
+  stroke: var(--accent-text-color);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.cta__body {
+  position: relative;
+  max-width: 44rem;
+  margin-inline: auto;
+}
+
+.cta h2 {
+  font-size: clamp(1.7rem, 5vw, 2.7rem);
+  letter-spacing: -0.02em;
+}
+
+.cta p {
+  max-width: 44ch;
+  margin: 0 auto 1.75rem;
+  font-size: 1.1rem;
+  color: var(--muted-color);
+}
+
+
+/* ==========================================================================
+   11. FOOTER
+   ========================================================================== */
+
+.site-footer {
+  padding-top: clamp(2.5rem, 6vw, 4rem);
+  border-top: 1px solid var(--border-color);
+  background: var(--card-color);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.footer-brand p {
+  max-width: 42ch;
+  margin: 1rem 0 0;
+  color: var(--muted-color);
+}
+
+.footer-links__title {
+  margin: 0 0 0.75rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-text-color);
+}
+
+.footer-links ul {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-links a {
+  color: var(--muted-color);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: var(--accent-text-color);
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.4rem 1.5rem;
+  margin-top: 2rem;
+  padding: 1.1rem 0 1.5rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.85rem;
+  color: var(--muted-color);
+}
+
+
+/* ==========================================================================
+   12. REVEAL ANIMATION, RESPONSIVE, REDUCED MOTION
+   ========================================================================== */
+
+/* Sections fade up as they scroll into view. js/landing.js adds
+   .js-reveal on <html> (not at all when "reduce motion" is on), so if
+   JavaScript is missing everything simply stays visible. */
+.js-reveal .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease,
+    border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.js-reveal .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* hover lift must still win once a card is visible */
+.js-reveal .level-card.reveal.is-visible:hover { transform: translateY(-6px); }
+.js-reveal .feature.reveal.is-visible:hover    { transform: translateY(-4px); }
+
+/* small stagger for cards in the same row */
+.reveal:nth-child(2) { transition-delay: 0.08s; }
+.reveal:nth-child(3) { transition-delay: 0.16s; }
+.feature.reveal:nth-child(4) { transition-delay: 0.08s; }
+.feature.reveal:nth-child(5) { transition-delay: 0.16s; }
+
+/* ---------- Tablet (600px and up) ---------- */
+@media (min-width: 600px) {
+  .stats-strip {
+    grid-template-columns: repeat(4, 1fr);
+    padding: 0.5rem;
+  }
+
+  .stat {
+    padding: 0.75rem;
+  }
+
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---------- Desktop navigation + side-by-side hero ---------- */
+@media (min-width: 900px) {
+  .hero-grid {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+
+  .hero-visual {
+    margin-inline: 0 auto;
+    width: min(100%, 470px);
+  }
+
+  .chip--clock { right: -1rem; }
+  .chip--clue  { left: -1.5rem; }
+
+  .level-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* horizontal steps with a line running through the icons */
+  .steps {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .steps::before {
+    top: 2rem;
+    bottom: auto;
+    left: 16.6%;
+    right: 16.6%;
+    width: auto;
+    height: 0;
+    border-left: 0;
+    border-top: 2px dashed color-mix(in srgb, var(--accent-text-color) 45%, var(--border-color));
+  }
+
+  .step {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .step__icon {
+    grid-row: auto;
+    margin-bottom: 1rem;
+  }
+
+  .feature-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .footer-grid {
+    grid-template-columns: 1.6fr 1fr;
+  }
+}
+
+/* ---------- Mobile navigation (below 900px) ---------- */
+@media (max-width: 899px) {
+  .nav-play {
+    margin-left: auto;
+  }
+
+  .nav-toggle {
+    display: grid;
+  }
+
+  .nav-panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0.85rem 1rem 1.1rem;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--card-color);
+    box-shadow: 0 24px 40px -24px color-mix(in srgb, var(--text-color) 60%, transparent);
+  }
+
+  .nav-panel.is-open {
+    display: flex;
+    animation: rise-in 0.2s ease both;
+  }
+
+  .nav-links {
+    flex-direction: column;
+  }
+
+  .nav-link {
+    padding: 0.8rem 0.9rem;
+  }
+
+  .nav-theme {
+    justify-content: center;
+    padding: 0.7rem 1rem;
+  }
+}
+
+/* ---------- Small phones ---------- */
+@media (max-width: 520px) {
+  .hero-buttons .btn {
+    flex: 1 1 100%;
+  }
+
+  .brand__name {
+    font-size: 1rem;
+  }
+
+  .nav-play {
+    padding-inline: 1rem;
+  }
+
+  .chip--clock { top: 0; }
+  .chip--clue  { bottom: 2%; }
+
+  .chip__time { font-size: 1.35rem; }
+  .chip__text { font-size: 0.78rem; }
+}
+
+@media (max-width: 360px) {
+  .brand__name {
+    display: none;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+/* style.css already switches off every animation and transition. These
+   lines cover the few things that live only on the landing page. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .level-card:hover,
+  .feature:hover {
+    transform: none;
+  }
+
+  .js-reveal .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
